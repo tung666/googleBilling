@@ -1,0 +1,4 @@
+<resources>
+    <string name="app_name">GoogleBilling</string>
+    <string name="index_activity_log_clean"><u>清除</u></string>
+</resources>
