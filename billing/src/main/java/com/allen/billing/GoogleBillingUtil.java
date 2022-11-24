@@ -45,8 +45,8 @@ public class GoogleBillingUtil {
 
     private static final String TAG = "Billing-" + BuildConfig.VERSION_NAME;
     private static boolean IS_DEBUG = false;
-    private static String[] inAppSKUS = new String[]{};//内购ID,必填，注意！如果用不着的请去掉多余的""
-    private static String[] subsSKUS = new String[]{};//订阅ID,必填，注意！如果用不着的请去掉多余的""
+    private static List<String> inAppSKUS = new ArrayList<>();//内购ID,必填，注意！如果用不着的请去掉多余的""
+    private static List<String> subsSKUS = new ArrayList<>();//订阅ID,必填，注意！如果用不着的请去掉多余的""
 
     public static final String BILLING_TYPE_INAPP = BillingClient.ProductType.INAPP;//内购
     public static final String BILLING_TYPE_SUBS = BillingClient.ProductType.SUBS;//订阅
@@ -75,10 +75,12 @@ public class GoogleBillingUtil {
      */
     public static void setSkus(@Nullable String[] inAppSKUS, @Nullable String[] subsSKUS) {
         if (inAppSKUS != null) {
-            GoogleBillingUtil.inAppSKUS = Arrays.copyOf(inAppSKUS, inAppSKUS.length);
+            GoogleBillingUtil.inAppSKUS.clear();
+            GoogleBillingUtil.inAppSKUS.addAll(Arrays.asList(inAppSKUS));
         }
         if (subsSKUS != null) {
-            GoogleBillingUtil.subsSKUS = Arrays.copyOf(subsSKUS, subsSKUS.length);
+            GoogleBillingUtil.subsSKUS.clear();
+            GoogleBillingUtil.subsSKUS.addAll(Arrays.asList(subsSKUS));
         }
     }
 
@@ -205,6 +207,7 @@ public class GoogleBillingUtil {
 
     /**
      * 查询购买的商品信息
+     *
      * @param tag
      * @param productType
      */
@@ -757,8 +760,8 @@ public class GoogleBillingUtil {
      * @return sku
      */
     public String getSubsSkuByPosition(int position) {
-        if (position >= 0 && position < subsSKUS.length) {
-            return subsSKUS[position];
+        if (position >= 0 && position < subsSKUS.size()) {
+            return subsSKUS.get(position);
         } else {
             return null;
         }
@@ -771,8 +774,8 @@ public class GoogleBillingUtil {
      * @return sku
      */
     public String getInAppSkuByPosition(int position) {
-        if (position >= 0 && position < inAppSKUS.length) {
-            return inAppSKUS[position];
+        if (position >= 0 && position < inAppSKUS.size()) {
+            return inAppSKUS.get(position);
         } else {
             return null;
         }
